@@ -50,7 +50,7 @@
             this.btnMessage.Location = new System.Drawing.Point(682, 449);
             this.btnMessage.Name = "btnMessage";
             this.btnMessage.Size = new System.Drawing.Size(88, 106);
-            this.btnMessage.TabIndex = 0;
+            this.btnMessage.TabIndex = 5;
             this.btnMessage.Text = "Start";
             this.btnMessage.UseVisualStyleBackColor = false;
             this.btnMessage.Click += new System.EventHandler(this.btnMessage_Click);
@@ -64,7 +64,7 @@
             this.lblName.Location = new System.Drawing.Point(13, 14);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(39, 13);
-            this.lblName.TabIndex = 1;
+            this.lblName.TabIndex = 0;
             this.lblName.Text = "Nome";
             // 
             // lblCPF
@@ -76,7 +76,7 @@
             this.lblCPF.Location = new System.Drawing.Point(22, 68);
             this.lblCPF.Name = "lblCPF";
             this.lblCPF.Size = new System.Drawing.Size(30, 13);
-            this.lblCPF.TabIndex = 2;
+            this.lblCPF.TabIndex = 3;
             this.lblCPF.Text = "CPF";
             // 
             // txtName
@@ -84,7 +84,7 @@
             this.txtName.Location = new System.Drawing.Point(16, 30);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(100, 20);
-            this.txtName.TabIndex = 3;
+            this.txtName.TabIndex = 1;
             // 
             // lblNum
             // 
@@ -95,7 +95,7 @@
             this.lblNum.Location = new System.Drawing.Point(143, 14);
             this.lblNum.Name = "lblNum";
             this.lblNum.Size = new System.Drawing.Size(50, 13);
-            this.lblNum.TabIndex = 5;
+            this.lblNum.TabIndex = 6;
             this.lblNum.Text = "Numero";
             // 
             // txtNum
@@ -103,7 +103,7 @@
             this.txtNum.Location = new System.Drawing.Point(143, 30);
             this.txtNum.Name = "txtNum";
             this.txtNum.Size = new System.Drawing.Size(100, 20);
-            this.txtNum.TabIndex = 6;
+            this.txtNum.TabIndex = 3;
             // 
             // lblEmail
             // 
@@ -114,7 +114,7 @@
             this.lblEmail.Location = new System.Drawing.Point(152, 68);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(41, 13);
-            this.lblEmail.TabIndex = 7;
+            this.lblEmail.TabIndex = 8;
             this.lblEmail.Text = "E-mail";
             // 
             // txtEmail
@@ -122,7 +122,7 @@
             this.txtEmail.Location = new System.Drawing.Point(146, 84);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(100, 20);
-            this.txtEmail.TabIndex = 8;
+            this.txtEmail.TabIndex = 4;
             // 
             // mtbCPF
             // 
@@ -130,7 +130,7 @@
             this.mtbCPF.Mask = "000,000,000-00";
             this.mtbCPF.Name = "mtbCPF";
             this.mtbCPF.Size = new System.Drawing.Size(100, 20);
-            this.mtbCPF.TabIndex = 9;
+            this.mtbCPF.TabIndex = 2;
             // 
             // Form1
             // 
@@ -148,7 +148,7 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnMessage);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "212121";
             this.ResumeLayout(false);
             this.PerformLayout();
 
