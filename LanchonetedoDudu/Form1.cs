@@ -20,7 +20,7 @@ namespace LanchonetedoDudu
 
         private void btnMessage_Click(object sender, EventArgs e)
         {
-            string mensagem = " Nome Completo: " + txtName.Text + "\n" + " CPF: " + txtCPF.Text;
+            string mensagem = " Nome Completo: " + txtName.Text + "\n" + " CPF: " + mtbCPF.Text + "\n" + " Numero: " + txtNum.Text + "\n" + " E-mail: " + txtEmail.Text;
             MessageBox.Show(mensagem, "INFORMAÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
