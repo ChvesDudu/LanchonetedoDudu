@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,78 @@ namespace LanchonetedoDudu
         {
             InitializeComponent();
         }
+        private void UpdateListView()
+        {
+            listView1.Items.Clear();
+
+            Connection conn = new Connection();
+            SqlCommand sqlCom = new SqlCommand();
+
+            sqlCom.Connection = conn.ReturnConnection();
+            sqlCom.CommandText = "SELECT * FROM Usuario";
+
+            try
+            {
+                SqlDataReader dr = sqlCom.ExecuteReader();
+
+                //Enquanto for possível continuar a leitura das linhas que foram retornadas na consulta, execute.
+                while (dr.Read())
+                {
+                    int id = (int)dr["Id"];
+                    string Name = (string)dr["Name"];
+                    string CPF = (string)dr["CPF"];
+                    string Password = (string)dr["Password"];
+                    string Email = (string)dr["Email"];
+
+                    ListViewItem lv = new ListViewItem(id.ToString());
+                    lv.SubItems.Add(Name);
+                    lv.SubItems.Add(CPF);
+                    lv.SubItems.Add(Password);
+                    lv.SubItems.Add(Email);
+                    listView1.Items.Add(lv);    
+
+                }
+                dr.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+            finally
+            {
+                conn.CloseConnection();
+            }
+        }
 
         private void btnMessage_Click(object sender, EventArgs e)
         {
-            string mensagem = " Nome Completo: " + txtName.Text + "\n" + " CPF: " + mtbCPF.Text + "\n" + " Numero: " + txtNum.Text + "\n" + " E-mail: " + txtEmail.Text;
-            MessageBox.Show(mensagem, "INFORMAÇÃO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Connection connection = new Connection();
+            SqlCommand sqlCommand = new SqlCommand();
+
+            sqlCommand.Connection = connection.ReturnConnection();
+            sqlCommand.CommandText = @"INSERT INTO Usuario VALUES (@name, @CPF, @Password, @Email)";
+
+            sqlCommand.Parameters.AddWithValue("@name", txtName.Text);
+            sqlCommand.Parameters.AddWithValue("@CPF", mtbCPF.Text);
+            sqlCommand.Parameters.AddWithValue("@password", txtPassword.Text);
+            sqlCommand.Parameters.AddWithValue("@email", txtEmail.Text);
+
+            sqlCommand.ExecuteNonQuery();
+
+            MessageBox.Show("Cadastrado com sucesso",
+                "AVISO",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            txtName.Clear();
+            txtEmail.Clear();
+            txtPassword.Clear();
+            mtbCPF.Clear();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            UpdateListView();
         }
     }
 }
