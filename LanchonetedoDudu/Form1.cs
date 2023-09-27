@@ -8,12 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LanchonetedoDudu
 {
     public partial class Form1 : Form
     {
+        private int Id;
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +29,8 @@ namespace LanchonetedoDudu
 
             sqlCom.Connection = conn.ReturnConnection();
             sqlCom.CommandText = "SELECT * FROM Usuario";
+
+
 
             try
             {
@@ -69,10 +73,11 @@ namespace LanchonetedoDudu
             sqlCommand.Connection = connection.ReturnConnection();
             sqlCommand.CommandText = @"INSERT INTO Usuario VALUES (@name, @CPF, @Password, @Email)";
 
+           
             sqlCommand.Parameters.AddWithValue("@name", txtName.Text);
             sqlCommand.Parameters.AddWithValue("@CPF", mtbCPF.Text);
             sqlCommand.Parameters.AddWithValue("@password", txtPassword.Text);
-            sqlCommand.Parameters.AddWithValue("@email", txtEmail.Text);
+            sqlCommand.Parameters.AddWithValue("@Email", txtEmail.Text);
 
             sqlCommand.ExecuteNonQuery();
 
@@ -90,6 +95,81 @@ namespace LanchonetedoDudu
         private void Form1_Load(object sender, EventArgs e)
         {
             UpdateListView();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Connection connection = new Connection();
+            SqlCommand sqlCommand = new SqlCommand();
+
+            sqlCommand.Connection = connection.ReturnConnection();
+            sqlCommand.CommandText = @"UPDATE Usuario SET 
+           
+             Id         = @Id,
+             Name       = @name, 
+             CPF        = @CPF, 
+             Password   = @password,
+             Email      = @Email";
+
+             
+            
+            sqlCommand.Parameters.AddWithValue("@Id", Id);
+            sqlCommand.Parameters.AddWithValue("@name", txtName.Text);
+            sqlCommand.Parameters.AddWithValue("@CPF", mtbCPF.Text);
+            sqlCommand.Parameters.AddWithValue("@password", txtPassword.Text);
+            sqlCommand.Parameters.AddWithValue("@Email", txtEmail.Text);
+           
+
+            sqlCommand.ExecuteNonQuery();
+
+            MessageBox.Show("Atualizado com sucesso",
+                "AVISO",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+           
+            txtName.Clear();
+            mtbCPF.Clear();
+            txtEmail.Clear();
+            txtPassword.Clear();
+
+            UpdateListView();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            Connection connection = new Connection();
+            SqlCommand sqlCommand = new SqlCommand();
+
+            sqlCommand.Connection = connection.ReturnConnection();
+            sqlCommand.CommandText = @"DELETE FROM Usuario WHERE Id = @id";
+            sqlCommand.Parameters.AddWithValue("@id", Id);
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception err)
+            {
+                throw new Exception("Erro: Problemas ao excluir usuário no banco.\n" + err.Message);
+            }
+            finally
+            {
+                connection.CloseConnection();
+            }
+            UpdateListView();
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            {
+                int index;
+                index = listView1.FocusedItem.Index;
+                Id = int.Parse(listView1.Items[index].SubItems[0].Text);
+                txtName.Text = listView1.Items[index].SubItems[1].Text;
+                txtEmail.Text = listView1.Items[index].SubItems[2].Text;
+                mtbCPF.Text = listView1.Items[index].SubItems[3].Text;
+                txtPassword.Text = listView1.Items[index].SubItems[4].Text;
+            }
         }
     }
 }
