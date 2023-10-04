@@ -42,8 +42,9 @@ namespace LanchonetedoDudu
                     int id = (int)dr["Id"];
                     string Name = (string)dr["Name"];
                     string CPF = (string)dr["CPF"];
-                    string Password = (string)dr["Password"];
                     string Email = (string)dr["Email"];
+                    string Password = (string)dr["Password"];
+                    
 
                     ListViewItem lv = new ListViewItem(id.ToString());
                     lv.SubItems.Add(Name);
@@ -105,11 +106,11 @@ namespace LanchonetedoDudu
             sqlCommand.Connection = connection.ReturnConnection();
             sqlCommand.CommandText = @"UPDATE Usuario SET 
            
-             Id         = @Id,
              Name       = @name, 
              CPF        = @CPF, 
              Password   = @password,
-             Email      = @Email";
+             Email      = @Email where Id = @Id";
+
 
              
             
@@ -126,7 +127,7 @@ namespace LanchonetedoDudu
                 "AVISO",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-           
+            
             txtName.Clear();
             mtbCPF.Clear();
             txtEmail.Clear();
@@ -137,25 +138,18 @@ namespace LanchonetedoDudu
 
         private void button2_Click(object sender, EventArgs e)
         {
+            UserDAO userDAO = new UserDAO();
+            userDAO.DeleteUser(Id);
 
-            Connection connection = new Connection();
-            SqlCommand sqlCommand = new SqlCommand();
+            MessageBox.Show("Excluido com sucesso",
+                "AVISO",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
 
-            sqlCommand.Connection = connection.ReturnConnection();
-            sqlCommand.CommandText = @"DELETE FROM Usuario WHERE Id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", Id);
-            try
-            {
-                sqlCommand.ExecuteNonQuery();
-            }
-            catch (Exception err)
-            {
-                throw new Exception("Erro: Problemas ao excluir usuário no banco.\n" + err.Message);
-            }
-            finally
-            {
-                connection.CloseConnection();
-            }
+            txtName.Clear();
+            mtbCPF.Clear();
+            txtEmail.Clear();
+            txtPassword.Clear();
             UpdateListView();
         }
 
